@@ -14,7 +14,17 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const app = express();
-var bodyParser = require('body-parser');
+
+let mongoose;
+try {
+  mongoose = require('mongoose');
+} catch (e) {
+  console.log(e);
+}
+const fs = require('fs');
+const path = require('path');
+const bodyParser = require("body-parser");
+const router = express.Router();
 
 // enable bodyParser
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -31,12 +41,25 @@ app.get('/', function(req, res) {
   res.sendFile(process.cwd() + '/views/index.html');
 });
 
-/*
-// Your first API endpoint
-app.get('/api/hello', function(req, res) {
-  res.json({ greeting: 'hello API' });
+router.get("/file/*?", function (req, res, next) {
+  if (req.params[0] === ".env") {
+    return next({ status: 401, message: "ACCESS DENIED" });
+  }
+  fs.readFile(path.join(__dirname, req.params[0]), function (err, data) {
+    if (err) {
+      return next(err);
+    }
+    res.type("txt").send(data.toString());
+  });
 });
-*/
+
+router.get("/is-mongoose-ok", function (req, res) {
+  if (mongoose) {
+    res.json({ isMongooseOk: !!mongoose.connection.readyState });
+  } else {
+    res.json({ isMongooseOk: false });
+  }
+});
 
 app.get("/api", function (req, res, next) {
 
