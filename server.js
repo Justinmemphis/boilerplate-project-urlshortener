@@ -68,9 +68,30 @@ router.get("/is-mongoose-ok", function (req, res) {
 require("dotenv").config();
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
+const Schema = mongoose.Schema;
+
+const urlSchema = new Schema({
+  url: { type: String, required: true},
+  shortUrl: Number
+});
+
+const Url = mongoose.model("Url", urlSchema);
+
+const createAndSaveUrl = (done) => {
+  const amazon = new Url({url: "https://www.amazon.com", shortUrl: 1});
+
+  amazon.save( (err, data) => {
+    if (err) return console.error(err);
+    done(null, data)
+  });
+};
+
+
+/*
 app.get("/api", function (req, res, next) {
 
 });
+*/
 
 app.listen(port, function() {
   console.log(`Listening on port ${port}`);
