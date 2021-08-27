@@ -8,6 +8,18 @@ TO DO:
     2. generate JSON response - original URL and short url
     3. when you visit the short URL you get redirected to the original URL
 
+08/27 Update - got mongoose initially installed (maybe) - need to get it to
+correctly post and save new URL record below - that will mean it is working
+
+Also - need to test URL when submitted to make sure it is a valid Url
+Additionally, once that is done, need to test URL to see if it is already
+in the database or not.  If it's in the database go ahead and pull the shortUrl
+already generated.  If it's not in the database create a new record
+
+Finally, need to have the /api/shorturl redirect browser to the given location
+(assuming we also create a new short url for this as well)
+
+
 */
 
 require('dotenv').config();
