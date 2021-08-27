@@ -41,6 +41,8 @@ app.get('/', function(req, res) {
   res.sendFile(process.cwd() + '/views/index.html');
 });
 
+// the following sections are from server.js on the other mongoose project
+
 router.get("/file/*?", function (req, res, next) {
   if (req.params[0] === ".env") {
     return next({ status: 401, message: "ACCESS DENIED" });
@@ -60,6 +62,11 @@ router.get("/is-mongoose-ok", function (req, res) {
     res.json({ isMongooseOk: false });
   }
 });
+
+// this begins where myApp.js on the other project starts - kept in the same file (no exports)
+
+require("dotenv").config();
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.get("/api", function (req, res, next) {
 
