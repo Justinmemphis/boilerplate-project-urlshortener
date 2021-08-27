@@ -1,6 +1,7 @@
 {
   "name": "shorturl",
-  "version": "0.0.3",
+  "author": "Justin Carter",
+  "version": "0.0.4",
   "description": "API project for freeCodeCamp",
   "main": "server.js",
   "scripts": {
