@@ -3,8 +3,9 @@ TO DO:
 
 08/30:
     1. Get new record to post to MongoDB
-        A. Why is MongDB creating a sub-database vs. collection database?
-
+        A. - it looks like they are properly connecting to MongoDB - I can see
+              the activity on MongoDB and it is correctly doing console.log
+        B. Next step is to get a new record to post to MongoDB
 
   set up variables
   test if URL is a valid url
