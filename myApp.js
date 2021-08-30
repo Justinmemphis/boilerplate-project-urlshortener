@@ -6,14 +6,14 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
 const Schema = mongoose.Schema;
 
 const urlSchema = new Schema({
-  url: { type: String, required: true},
+  longUrl: { type: String, required: true},
   shortUrl: Number
 });
 
 const Url = mongoose.model("Url", urlSchema);
 
 const createAndSaveUrl = (done) => {
-  const amazon = new Url({url: "https://www.amazon.com", shortUrl: 1});
+  const amazon = new Url({longUrl: "https://www.amazon.com", shortUrl: 1});
 
   amazon.save( (err, data) => {
     if (err) return console.error(err);
