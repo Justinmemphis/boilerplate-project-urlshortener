@@ -1,5 +1,10 @@
 /*
 TO DO:
+
+08/30:
+    1. Get new record to post to MongoDB
+
+
   set up variables
   test if URL is a valid url
     1. if not a valid URL - give error message
@@ -39,7 +44,7 @@ const bodyParser = require("body-parser");
 const router = express.Router();
 
 // enable bodyParser
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: "false" }));
 app.use(bodyParser.json());
 
 // Basic Configuration
