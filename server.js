@@ -92,7 +92,9 @@ const urlSchema = new Schema({
   shortUrl: Number
 });
 
-const Url = require(mongoose.model("Url", urlSchema));
+const UrlDummy = mongoose.model("Url", urlSchema);
+
+const Url = require().UrlModel;
 
 router.use(function (req, res, next) {
   if (req.method !== "OPTIONS" && Url.modelName !== "Url") {
