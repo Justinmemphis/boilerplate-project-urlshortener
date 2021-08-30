@@ -65,7 +65,8 @@ router.post("/mongoose-model", function (req, res, next) {
   res.json(p);
 });
 
-
+// list out functions
+const createUrl = require("./myApp.js").createAndSaveUrl;
 
 
 // Error handler
