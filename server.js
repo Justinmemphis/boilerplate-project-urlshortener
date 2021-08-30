@@ -94,6 +94,21 @@ const urlSchema = new Schema({
 
 const Url = mongoose.model("Url", urlSchema);
 
+router.use(function (req, res, next) {
+  if (req.method !== "OPTIONS" && Url.modelName !== "Url") {
+    return next({ message: "URL Model is not correct" });
+  }
+  next();
+});
+
+router.post("/mongoose-model", function (req, res, next) {
+  // try to create a new instance based on their model
+  // verify it's correctly defined in some way
+  let p;
+  p = new Url(req.body);
+  res.json(p);
+});
+
 const createAndSaveUrl = (done) => {
   const amazon = new Url({url: "https://www.amazon.com", shortUrl: 1});
 
@@ -109,6 +124,26 @@ app.get("/api", function (req, res, next) {
 
 });
 */
+
+
+// Error handler
+app.use(function (err, req, res, next) {
+  if (err) {
+    res
+      .status(err.status || 500)
+      .type("txt")
+      .send(err.message || "SERVER ERROR");
+  }
+});
+
+// Unmatched routes handler
+app.use(function (req, res) {
+  if (req.method.toLowerCase() === "options") {
+    res.end();
+  } else {
+    res.status(404).type("txt").send("Not Found");
+  }
+});
 
 app.listen(port, function() {
   console.log(`Listening on port ${port}`);
