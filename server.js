@@ -27,7 +27,6 @@ Finally, need to have the /api/shorturl redirect browser to the given location
 
 */
 
-require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const app = express();
@@ -80,21 +79,7 @@ router.get("/is-mongoose-ok", function (req, res) {
   }
 });
 
-// this begins where myApp.js on the other project starts - kept in the same file (no exports)
-
-require("dotenv").config();
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-
-const Schema = mongoose.Schema;
-
-const urlSchema = new Schema({
-  url: { type: String, required: true},
-  shortUrl: Number
-});
-
-const UrlDummy = mongoose.model("Url", urlSchema);
-
-const Url = require().UrlModel;
+const Url = require("./myApp.js").UrlModel;
 
 router.use(function (req, res, next) {
   if (req.method !== "OPTIONS" && Url.modelName !== "Url") {
@@ -111,21 +96,7 @@ router.post("/mongoose-model", function (req, res, next) {
   res.json(p);
 });
 
-const createAndSaveUrl = (done) => {
-  const amazon = new Url({url: "https://www.amazon.com", shortUrl: 1});
 
-  amazon.save( (err, data) => {
-    if (err) return console.error(err);
-    done(null, data)
-  });
-};
-
-
-/*
-app.get("/api", function (req, res, next) {
-
-});
-*/
 
 
 // Error handler
