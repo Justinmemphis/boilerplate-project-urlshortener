@@ -1,6 +1,9 @@
 /*
 TO DO:
 
+START HERE: - validate a URL in node.js
+https://stackoverflow.com/questions/30931079/validating-a-url-in-node-js/55585593
+
 08/31:
     Things that are working:
       1. MongoDB connecting; mongoose correctly searching by ID and also creating
