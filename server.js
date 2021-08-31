@@ -134,7 +134,7 @@ router.get("/find-by-id", function (req, res, next) {
 });
 
 // main post argument
-router.get("/api/shorturl", (req, res) => {
+router.get("/shorturl", (req, res) => {
   res.json({
     message: "Hello shorturl"
   });
