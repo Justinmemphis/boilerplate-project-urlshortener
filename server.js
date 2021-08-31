@@ -79,9 +79,9 @@ router.use(function (req, res, next) {
 router.post("/mongoose-model", function (req, res, next) {
   // try to create a new instance based on their model
   // verify it's correctly defined in some way
-  let p;
-  p = new Url(req.body);
-  res.json(p);
+  let u;
+  u = new Url(req.body);
+  res.json(u);
 });
 
 // list out functions
