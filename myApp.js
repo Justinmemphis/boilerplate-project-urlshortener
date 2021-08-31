@@ -43,12 +43,12 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
 
 const Schema = mongoose.Schema;
 
-const UrlSchema = new Schema({
+const urlSchema = new Schema({
   longUrl: { type: String, required: true},
   shortUrl: { type: Number}
 });
 
-const Url = mongoose.model("Url", UrlSchema);
+const Url = mongoose.model("Url", urlSchema);
 
 const createAndSaveUrl = (done) => {
   const amazon = new Url({longUrl: "https://www.amazon.com", shortUrl: 1});
