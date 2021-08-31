@@ -1,6 +1,19 @@
 /*
 TO DO:
 
+08/31:
+    Things that are working:
+      1. MongoDB connecting; mongoose correctly searching by ID and also creating
+        and saving urls.
+      2. Added counter in the form of the short_url variable.
+
+    Things still to do:
+      1. See how to retrieve data from post statement.
+      2. Validate that URL is a valid URL.
+      3. If valid, create a new record - export the JSON to the user
+      4. If someone puts in the URL correctly it will lookup the short_url and
+        then redirect to the original_url
+
 08/30:
     1. Get new record to post to MongoDB
         A. - it looks like they are properly connecting to MongoDB - I can see
