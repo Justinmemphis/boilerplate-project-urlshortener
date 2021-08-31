@@ -136,13 +136,6 @@ router.get("/find-by-id", function (req, res, next) {
 // main post argument
 router.post("/shorturl", (req, res) => {
   var long_url = req.body.url;
-  var dns = require('dns');
-  var url = require('url');
-  const parsedLongUrl = url.parse(long_url);
-  console.log(parsedLongUrl);
-  dns.lookup(parsedLongUrl.hostname, (error) => {
-    res.json({ error: "invalid url"});
-  });
   res.json({ long_url });
 });
 
