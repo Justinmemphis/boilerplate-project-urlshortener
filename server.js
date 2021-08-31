@@ -132,6 +132,7 @@ router.get("/find-by-id", function (req, res, next) {
   });
 });
 
+app.use("/_api", enableCORS, router);
 
 // Error handler
 app.use(function (err, req, res, next) {
