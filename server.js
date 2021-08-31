@@ -28,6 +28,7 @@ app.get('/', function(req, res) {
   res.sendFile(process.cwd() + '/views/index.html');
 });
 
+/* comment out this file-sender until actually sending files
 router.get("/file/*?", function (req, res, next) {
   if (req.params[0] === ".env") {
     return next({ status: 401, message: "ACCESS DENIED" });
@@ -39,6 +40,7 @@ router.get("/file/*?", function (req, res, next) {
     res.type("txt").send(data.toString());
   });
 });
+*/
 
 router.get("/is-mongoose-ok", function (req, res) {
   if (mongoose) {
