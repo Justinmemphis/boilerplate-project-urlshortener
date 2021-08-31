@@ -8,6 +8,7 @@ try {
 } catch (e) {
   console.log(e);
 }
+const AutoIncrement = require("mongoose-sequence")(mongoose);
 const fs = require('fs');
 const path = require('path');
 const bodyParser = require("body-parser");
@@ -113,7 +114,7 @@ router.get("/find-by-id", function (req, res, next) {
   let t = setTimeout(() => {
     next({ message: "timeout" });
   }, TIMEOUT);
-  let u = new Url({ original_url: "https://www.google.com", short_url: 2});
+  let u = new Url({ original_url: "https://www.google.com"});
   u.save(function (err, url) {
     if (err) {
       return next(err);
