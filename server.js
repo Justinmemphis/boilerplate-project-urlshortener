@@ -108,7 +108,7 @@ router.get("/create-and-save-url", function (req, res, next) {
   });
 });
 
-const findById = require("./myApp.js").findPersonById;
+const findById = require("./myApp.js").findUrlById;
 router.get("/find-by-id", function (req, res, next) {
   let t = setTimeout(() => {
     next({ message: "timeout" });
