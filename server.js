@@ -13,6 +13,25 @@ const path = require('path');
 const bodyParser = require("body-parser");
 const router = express.Router();
 
+const enableCORS = function (req, res, next) {
+  if (!process.env.DISABLE_XORIGIN) {
+    const allowedOrigins = ["https://www.freecodecamp.org"];
+    const origin = req.headers.origin;
+    if (!process.env.XORIGIN_RESTRICT || allowedOrigins.indexOf(origin) > -1) {
+      console.log(req.method);
+      res.set({
+        "Access-Control-Allow-Origin": origin,
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers":
+          "Origin, X-Requested-With, Content-Type, Accept",
+      });
+    }
+  }
+  next();
+};
+
+const TIMEOUT = 10000;
+
 // enable bodyParser
 app.use(bodyParser.urlencoded({ extended: "false" }));
 app.use(bodyParser.json());
@@ -28,7 +47,6 @@ app.get('/', function(req, res) {
   res.sendFile(process.cwd() + '/views/index.html');
 });
 
-/* comment out this file-sender until actually sending files
 router.get("/file/*?", function (req, res, next) {
   if (req.params[0] === ".env") {
     return next({ status: 401, message: "ACCESS DENIED" });
@@ -40,7 +58,6 @@ router.get("/file/*?", function (req, res, next) {
     res.type("txt").send(data.toString());
   });
 });
-*/
 
 router.get("/is-mongoose-ok", function (req, res) {
   if (mongoose) {
