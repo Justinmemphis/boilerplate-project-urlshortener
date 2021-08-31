@@ -86,6 +86,22 @@ router.post("/mongoose-model", function (req, res, next) {
 
 // list out functions
 const createUrl = require("./myApp.js").createAndSaveUrl;
+router.get("/create-and-save-url", function (req, res, next) {
+  let t = setTimeout(() => {
+    next({ message: "timeout" });
+  }), TIMEOUT);
+  createUrl(function (err, data) {
+    clearTimeout(t);
+    if (err) {
+      return next(err);
+    }
+    if (!data) {
+      console.log("missing `done()` argument");
+      return next({ message: "Missing callback argument" });
+    }
+
+  });
+});
 
 
 // Error handler
