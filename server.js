@@ -99,7 +99,36 @@ router.get("/create-and-save-url", function (req, res, next) {
       console.log("missing `done()` argument");
       return next({ message: "Missing callback argument" });
     }
+    Url.findById(data._id, function (err, url) {
+      if (err) {
+        return next(err);
+      }
+      res.json(url);
+    });
+  });
+});
 
+const findById = require("./myApp.js").findPersonById;
+router.get("/find-by-id", function (req, res, next) {
+  let t = setTimeout(() => {
+    next({ message: "timeout" });
+  }, TIMEOUT);
+  let u = new Url({ longUrl: "https://www.google.com", shortUrl: 9999});
+  u.save(function (err, url) {
+    if (err) {
+      return next(err);
+    }
+    findById(url._id, function (err, data) {
+      clearTimeout(t);
+      if (err) {
+        return next(err);
+      }
+      if (!data) {
+        console.log("Missing `done()` argument");
+        return next({ message: "Missing callback argument" });
+      }
+      res.json(data);
+    });
   });
 });
 
