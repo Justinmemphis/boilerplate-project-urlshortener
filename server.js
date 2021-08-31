@@ -89,7 +89,7 @@ const createUrl = require("./myApp.js").createAndSaveUrl;
 router.get("/create-and-save-url", function (req, res, next) {
   let t = setTimeout(() => {
     next({ message: "timeout" });
-  }), TIMEOUT);
+  }, TIMEOUT);
   createUrl(function (err, data) {
     clearTimeout(t);
     if (err) {
