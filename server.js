@@ -140,7 +140,7 @@ router.get("/api/shorturl", (req, res) => {
   });
 });
 
-app.use("/_api", enableCORS, router);
+app.use("/api", enableCORS, router);
 
 // Error handler
 app.use(function (err, req, res, next) {
