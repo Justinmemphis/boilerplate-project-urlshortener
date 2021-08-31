@@ -113,7 +113,7 @@ router.get("/find-by-id", function (req, res, next) {
   let t = setTimeout(() => {
     next({ message: "timeout" });
   }, TIMEOUT);
-  let u = new Url({ longUrl: "https://www.google.com", shortUrl: 9999});
+  let u = new Url({ longUrl: "https://www.google.com", shortUrl: 2});
   u.save(function (err, url) {
     if (err) {
       return next(err);
