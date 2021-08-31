@@ -40,6 +40,7 @@ const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
         .then( () => console.log("MongoDB Connected..."))
         .catch(err => console.log(err));
+const AutoIncrement = require("mongoose-sequence")(mongoose);
 
 const Schema = mongoose.Schema;
 
@@ -48,10 +49,12 @@ const urlSchema = new Schema({
   short_url: { type: Number}
 });
 
+urlSchema.plugin(AutoIncrement, {inc_field: "short_url"});
+
 const Url = mongoose.model("Url", urlSchema);
 
 const createAndSaveUrl = (done) => {
-  const amazon = new Url({original_url: "https://www.amazon.com", short_url: 1});
+  const amazon = new Url({original_url: "https://www.amazon.com"});
 
   amazon.save( (err, data) => {
     if (err) return console.error(err);
