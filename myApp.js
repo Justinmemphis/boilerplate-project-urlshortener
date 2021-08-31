@@ -13,6 +13,7 @@ TO DO:
       3. If valid, create a new record - export the JSON to the user
       4. If someone puts in the URL correctly it will lookup the short_url and
         then redirect to the original_url
+      5. Get button to work
 
 08/30:
     1. Get new record to post to MongoDB
