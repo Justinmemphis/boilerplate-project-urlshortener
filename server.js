@@ -135,7 +135,7 @@ router.get("/find-by-id", function (req, res, next) {
 
 // main post argument
 router.post("/shorturl", (req, res) => {
-  console.log(req.body);
+  res.json({ input: req.body });
 });
 
 app.use("/api", enableCORS, router);
