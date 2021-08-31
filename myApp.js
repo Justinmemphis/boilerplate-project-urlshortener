@@ -59,8 +59,16 @@ const createAndSaveUrl = (done) => {
   });
 };
 
+const findUrlById = (urlId, done) => {
+  Url.findById({_id: urlId}, (err, urlFound) => {
+    if (err) return console.log(err);
+    done(null, urlFound);
+  });
+};
+
 
 
 // exports at the bottom
 exports.UrlModel = Url;
 exports.createAndSaveUrl = createAndSaveUrl;
+exports.findUrlById = findUrlById;
