@@ -7,21 +7,21 @@ https://stackoverflow.com/questions/30931079/validating-a-url-in-node-js/5558559
 09/02:
     Having problems getting POST to work correctly for API and cors routing.
     Going to try switching implementation to replit to see if that improves
-    things.
+    things. - done and working
 
 08/31:
     Things that are working:
       1. MongoDB connecting; mongoose correctly searching by ID and also creating
         and saving urls.
       2. Added counter in the form of the short_url variable.
+      3. Retrieving data from post statement (09/02)
+      4. Validating URL is a valid url (09/02)
+      5. Button working (09/02) - related to post statement
 
     Things still to do:
-      1. See how to retrieve data from post statement.
-      2. Validate that URL is a valid URL.
-      3. If valid, create a new record - export the JSON to the user
-      4. If someone puts in the URL correctly it will lookup the short_url and
+      1. If valid, create a new record - export the JSON to the user
+      2. If someone puts in the URL correctly it will lookup the short_url and
         then redirect to the original_url
-      5. Get button to work
 
 08/30:
     1. Get new record to post to MongoDB
@@ -52,13 +52,16 @@ Sources:
 1. This is where it talks about catching route problems:
 https://stackoverflow.com/questions/44539210/express-js-handle-unmached-routes
 
+2. This is how to do DNS lookup:
+https://stackoverflow.com/questions/53697633/nodejs-dns-lookup-is-rejecting-urls-with-http
 
 
 */
 
-require('dotenv').config();
+// require('dotenv').config(); - replit doesn't bring in .env files
 
 const mongoose = require('mongoose');
+
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
         .then( () => console.log("MongoDB Connected..."))
         .catch(err => console.log(err));

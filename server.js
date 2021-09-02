@@ -1,13 +1,17 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
+const dns = require("dns");
 
 let mongoose;
 try {
   mongoose = require('mongoose');
 } catch (e) {
   console.log(e);
-}
+};
+
+mongoose.set('useFindAndModify', false);
+
 const AutoIncrement = require("mongoose-sequence")(mongoose);
 const fs = require('fs');
 const path = require('path');
@@ -136,7 +140,18 @@ router.get("/find-by-id", function (req, res, next) {
 // main post argument
 router.post("/shorturl", (req, res) => {
   var long_url = req.body.url;
-  res.json({ long_url });
+  const REPLACE_REGEX = /^https?:\/\//i
+
+  const urlOne = long_url.replace(REPLACE_REGEX, '');
+
+  dns.lookup(urlOne, function onLookup(err, address, family) {
+    if (err == null) {
+      console.log("No errors: " + err + " - " + address + " - " + family)
+    } else {
+      res.json({ error: 'invalid url' });
+    }
+  });
+  //res.json({ long_url });
 });
 
 app.use("/api", enableCORS, router);
@@ -152,7 +167,7 @@ app.use(function (err, req, res, next) {
 });
 
 // Your first API endpoint - test endpoint
-app.get('/hello', function(req, res) {
+router.get('/hello', function(req, res) {
   res.json({ greeting: 'hello API' });
 });
 
