@@ -4,6 +4,11 @@ TO DO:
 START HERE: - validate a URL in node.js
 https://stackoverflow.com/questions/30931079/validating-a-url-in-node-js/55585593
 
+09/02:
+    Having problems getting POST to work correctly for API and cors routing.
+    Going to try switching implementation to replit to see if that improves
+    things.
+
 08/31:
     Things that are working:
       1. MongoDB connecting; mongoose correctly searching by ID and also creating
