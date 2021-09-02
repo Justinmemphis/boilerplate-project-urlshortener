@@ -151,6 +151,11 @@ app.use(function (err, req, res, next) {
   }
 });
 
+// Your first API endpoint - test endpoint
+app.get('/hello', function(req, res) {
+  res.json({ greeting: 'hello API' });
+});
+
 // Unmatched routes handler
 app.use(function (req, res) {
   if (req.method.toLowerCase() === "options") {
