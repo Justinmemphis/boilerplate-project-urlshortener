@@ -1,19 +1,13 @@
 /*
 TO DO:
 
-START HERE: - validate a URL in node.js
-https://stackoverflow.com/questions/30931079/validating-a-url-in-node-js/55585593
+Start here: https://programmingmentor.com/post/save-form-nodejs-mongodb/
+pulling in form data to nodejs/mongodb
 
-09/02:
-    Having problems getting POST to work correctly for API and cors routing.
-    Going to try switching implementation to replit to see if that improves
-    things. - done and working
-
-08/31:
     Things that are working:
       1. MongoDB connecting; mongoose correctly searching by ID and also creating
-        and saving urls.
-      2. Added counter in the form of the short_url variable.
+        and saving urls. (08/31)
+      2. Added counter in the form of the short_url variable. (08/31)
       3. Retrieving data from post statement (09/02)
       4. Validating URL is a valid url (09/02)
       5. Button working (09/02) - related to post statement
@@ -22,6 +16,13 @@ https://stackoverflow.com/questions/30931079/validating-a-url-in-node-js/5558559
       1. If valid, create a new record - export the JSON to the user
       2. If someone puts in the URL correctly it will lookup the short_url and
         then redirect to the original_url
+
+
+
+09/02:
+    Having problems getting POST to work correctly for API and cors routing.
+    Going to try switching implementation to replit to see if that improves
+    things. - done and working
 
 08/30:
     1. Get new record to post to MongoDB
@@ -56,6 +57,9 @@ https://stackoverflow.com/questions/44539210/express-js-handle-unmached-routes
 https://stackoverflow.com/questions/53697633/nodejs-dns-lookup-is-rejecting-urls-with-http
 
 
+Useful walkthrough of creating a POST CRUD API:
+https://rahmanfadhil.com/express-rest-api/
+
 */
 
 // require('dotenv').config(); - replit doesn't bring in .env files
@@ -78,10 +82,10 @@ urlSchema.plugin(AutoIncrement, {inc_field: "short_url"});
 
 const Url = mongoose.model("Url", urlSchema);
 
-const createAndSaveUrl = (done) => {
-  const amazon = new Url({original_url: "https://www.amazon.com"});
+const createAndSaveUrl = (done, long_url) => {
+  var newUrl = new Url({original_url: long_url});
 
-  amazon.save( (err, data) => {
+  newUrl.save( (err, data) => {
     if (err) return console.error(err);
     done(null, data)
   });

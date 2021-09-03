@@ -146,7 +146,9 @@ router.post("/shorturl", (req, res) => {
 
   dns.lookup(urlOne, function onLookup(err, address, family) {
     if (err == null) {
-      console.log("No errors: " + err + " - " + address + " - " + family)
+      console.log("No errors: " + err + " - " + address + " - " + family);
+      createUrl;
+      res.json({ long_url });
     } else {
       res.json({ error: 'invalid url' });
     }
