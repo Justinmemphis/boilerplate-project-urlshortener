@@ -2,7 +2,9 @@
 TO DO:
 
 Start here - see how to get mongoose to pull in value via variable;  current implementation is not pulling in variable name long_url correctly
-(it is showing as undefined which is messing up the Schema).
+(it is showing as undefined which is messing up the Schema).  As far as I can tell, this is related to importing the initial variable name
+but not updating it after the app runs (so it needs a new instance).  Some methods solve this with classes or functions - see bookmarks for
+possible solutions. (09/07).
 
     Things that are working:
       1. MongoDB connecting; mongoose correctly searching by ID and also creating
@@ -87,7 +89,11 @@ urlSchema.plugin(AutoIncrement, {inc_field: "short_url"});
 
 const UrlModel = mongoose.model("UrlModel", urlSchema);
 
+
+
+
 //const { long_url } = require('./server.js');
+/*
 const createAndSaveUrl = (done) => {
   console.log(long_url);
   var newObj = {original_url: [long_url]};
@@ -101,6 +107,7 @@ const createAndSaveUrl = (done) => {
     done(null, data)
   });
 };
+*/
 
 const findUrlById = (urlId, done) => {
   UrlModel.findById({_id: urlId}, (err, urlFound) => {
