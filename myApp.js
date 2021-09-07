@@ -1,8 +1,8 @@
 /*
 TO DO:
 
-Start here: https://programmingmentor.com/post/save-form-nodejs-mongodb/
-pulling in form data to nodejs/mongodb
+Start here - see how to get mongoose to pull in value via variable;  current implementation is not pulling in variable name long_url correctly
+(it is showing as undefined which is messing up the Schema).
 
     Things that are working:
       1. MongoDB connecting; mongoose correctly searching by ID and also creating
@@ -56,9 +56,14 @@ https://stackoverflow.com/questions/44539210/express-js-handle-unmached-routes
 2. This is how to do DNS lookup:
 https://stackoverflow.com/questions/53697633/nodejs-dns-lookup-is-rejecting-urls-with-http
 
-
-Useful walkthrough of creating a POST CRUD API:
+3. Useful walkthrough of creating a POST CRUD API:
 https://rahmanfadhil.com/express-rest-api/
+
+4. Pushing items via Mongoose into MongoDB record:
+https://stackoverflow.com/questions/33049707/push-items-into-mongo-array-via-mongoose
+
+5. Pulling in form data to nodejs/mongodb
+https://programmingmentor.com/post/save-form-nodejs-mongodb/
 
 */
 
@@ -80,10 +85,16 @@ const urlSchema = new Schema({
 
 urlSchema.plugin(AutoIncrement, {inc_field: "short_url"});
 
-const Url = mongoose.model("Url", urlSchema);
+const UrlModel = mongoose.model("UrlModel", urlSchema);
 
-const createAndSaveUrl = (done, long_url) => {
-  var newUrl = new Url({original_url: long_url});
+//const { long_url } = require('./server.js');
+const createAndSaveUrl = (done) => {
+  console.log(long_url);
+  var newObj = {original_url: [long_url]};
+  console.log(newObj);
+  
+  var newUrl = new UrlModel(newObj);
+  console.log(newUrl);
 
   newUrl.save( (err, data) => {
     if (err) return console.error(err);
@@ -92,7 +103,7 @@ const createAndSaveUrl = (done, long_url) => {
 };
 
 const findUrlById = (urlId, done) => {
-  Url.findById({_id: urlId}, (err, urlFound) => {
+  UrlModel.findById({_id: urlId}, (err, urlFound) => {
     if (err) return console.log(err);
     done(null, urlFound);
   });
@@ -101,6 +112,6 @@ const findUrlById = (urlId, done) => {
 
 
 // exports at the bottom
-exports.UrlModel = Url;
+exports.UrlModel = UrlModel;
 exports.createAndSaveUrl = createAndSaveUrl;
 exports.findUrlById = findUrlById;

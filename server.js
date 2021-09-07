@@ -72,10 +72,10 @@ router.get("/is-mongoose-ok", function (req, res) {
   }
 });
 
-const Url = require("./myApp.js").UrlModel;
+const UrlModel = require("./myApp.js").UrlModel;
 
 router.use(function (req, res, next) {
-  if (req.method !== "OPTIONS" && Url.modelName !== "Url") {
+  if (req.method !== "OPTIONS" && UrlModel.modelName !== "UrlModel") {
     return next({ message: "URL Model is not correct" });
   }
   next();
@@ -85,7 +85,7 @@ router.post("/mongoose-model", function (req, res, next) {
   // try to create a new instance based on their model
   // verify it's correctly defined in some way
   let u;
-  u = new Url(req.body);
+  u = new UrlModel(req.body);
   res.json(u);
 });
 
@@ -104,7 +104,7 @@ router.get("/create-and-save-url", function (req, res, next) {
       console.log("missing `done()` argument");
       return next({ message: "Missing callback argument" });
     }
-    Url.findById(data._id, function (err, url) {
+    UrlModel.findById(data._id, function (err, url) {
       if (err) {
         return next(err);
       }
@@ -118,7 +118,7 @@ router.get("/find-by-id", function (req, res, next) {
   let t = setTimeout(() => {
     next({ message: "timeout" });
   }, TIMEOUT);
-  let u = new Url({ original_url: "https://www.google.com"});
+  let u = new UrlModel({ original_url: "https://www.google.com"});
   u.save(function (err, url) {
     if (err) {
       return next(err);
@@ -137,18 +137,39 @@ router.get("/find-by-id", function (req, res, next) {
   });
 });
 
+
 // main post argument
 router.post("/shorturl", (req, res) => {
   var long_url = req.body.url;
+  //console.log(long_url);
+  //module.exports.long_url = long_url;
   const REPLACE_REGEX = /^https?:\/\//i
 
   const urlOne = long_url.replace(REPLACE_REGEX, '');
+  //console.log("after urlOne long_url is now: " + long_url);
 
   dns.lookup(urlOne, function onLookup(err, address, family) {
     if (err == null) {
       console.log("No errors: " + err + " - " + address + " - " + family);
-      createUrl;
-      res.json({ long_url });
+      createUrl(
+        { _id: req.body.id },
+        { $push: { original_url: long_url } },
+        function (err, data) {
+        clearTimeout(t);
+      if (err) {
+        return next(err);
+      }
+      if (!data) {
+        console.log("missing `done()` argument");
+        return next({ message: "Missing callback argument" });
+      }
+      UrlModel.findById(data._id, function (err, url) {
+        if (err) {
+          return next(err);
+        }
+      res.json(url);
+      });
+  });
     } else {
       res.json({ error: 'invalid url' });
     }
@@ -185,3 +206,5 @@ app.use(function (req, res) {
 app.listen(port, function() {
   console.log(`Listening on port ${port}`);
 });
+
+
