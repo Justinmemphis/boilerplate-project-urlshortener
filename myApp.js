@@ -19,13 +19,8 @@ urlSchema.plugin(AutoIncrement, {inc_field: "short_url"});
 
 const UrlModel = mongoose.model("UrlModel", urlSchema);
 
-
-
-
-//const { long_url } = require('./server.js');
-/*
 const createAndSaveUrl = (done) => {
-  console.log(long_url);
+
   var newObj = {original_url: [long_url]};
   console.log(newObj);
 
