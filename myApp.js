@@ -1,19 +1,8 @@
 
 // require('dotenv').config(); - replit doesn't bring in .env files
-
+/*
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-        .then( () => console.log("MongoDB Connected..."))
-        .catch(err => console.log(err));
-const AutoIncrement = require("mongoose-sequence")(mongoose);
-
-const Schema = mongoose.Schema;
-
-const urlSchema = new Schema({
-  original_url: { type: String, required: true},
-  short_url: { type: Number}
-});
 
 urlSchema.plugin(AutoIncrement, {inc_field: "short_url"});
 
@@ -32,7 +21,7 @@ const createAndSaveUrl = (done) => {
     done(null, data)
   });
 };
-*/
+
 
 const findUrlById = (urlId, done) => {
   UrlModel.findById({_id: urlId}, (err, urlFound) => {
@@ -47,3 +36,5 @@ const findUrlById = (urlId, done) => {
 exports.UrlModel = UrlModel;
 exports.createAndSaveUrl = createAndSaveUrl;
 exports.findUrlById = findUrlById;
+
+*/

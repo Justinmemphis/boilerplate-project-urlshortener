@@ -1,7 +1,48 @@
-const express = require('express');
-const cors = require('cors');
-const app = express();
-const dns = require("dns");
+const express = require('express')
+const cors = require('cors')
+const app = express()
+const routes = require('./routes/routes.js')
+const path = require('path')
+const bodyParser = require("body-parser")
+
+// enable bodyParser
+app.use(bodyParser.urlencoded({ extended: "false" }))
+app.use(bodyParser.json())
+
+app.use(routes)
+app.use('/public', express.static(`${process.cwd()}/public`))
+
+// Error Handler - 404
+app.use(function (req, res) {
+  if (req.method.toLowerCase() === "options") {
+    res.end()
+  } else {
+    res.status(404).type("txt").send("Not Found")
+  }
+});
+
+// Error handler - 500
+app.use(function (err, req, res, next) {
+  if (err) {
+    res
+      .status(err.status || 500)
+      .type("txt")
+      .send(err.message || "SERVER ERROR");
+  }
+})
+
+const port = process.env.PORT || 3000;
+app.listen(port, function() {
+  console.log(`Listening on port ${port}`);
+})
+
+app.use(cors());
+
+app.get('/', function(req, res) {
+  res.sendFile(process.cwd() + '/views/index.html');
+});
+
+/*
 
 let mongoose;
 try {
@@ -14,8 +55,6 @@ mongoose.set('useFindAndModify', false);
 
 const AutoIncrement = require("mongoose-sequence")(mongoose);
 const fs = require('fs');
-const path = require('path');
-const bodyParser = require("body-parser");
 const router = express.Router();
 
 const enableCORS = function (req, res, next) {
@@ -37,20 +76,15 @@ const enableCORS = function (req, res, next) {
 
 const TIMEOUT = 10000;
 
-// enable bodyParser
-app.use(bodyParser.urlencoded({ extended: "false" }));
-app.use(bodyParser.json());
 
 // Basic Configuration
-const port = process.env.PORT || 3000;
 
-app.use(cors());
 
-app.use('/public', express.static(`${process.cwd()}/public`));
 
-app.get('/', function(req, res) {
-  res.sendFile(process.cwd() + '/views/index.html');
-});
+
+
+
+
 
 router.get("/file/*?", function (req, res, next) {
   if (req.params[0] === ".env") {
@@ -179,32 +213,11 @@ router.post("/shorturl", (req, res) => {
 
 app.use("/api", enableCORS, router);
 
-// Error handler
-app.use(function (err, req, res, next) {
-  if (err) {
-    res
-      .status(err.status || 500)
-      .type("txt")
-      .send(err.message || "SERVER ERROR");
-  }
-});
+
 
 // Your first API endpoint - test endpoint
 router.get('/hello', function(req, res) {
   res.json({ greeting: 'hello API' });
 });
 
-// Unmatched routes handler
-app.use(function (req, res) {
-  if (req.method.toLowerCase() === "options") {
-    res.end();
-  } else {
-    res.status(404).type("txt").send("Not Found");
-  }
-});
-
-app.listen(port, function() {
-  console.log(`Listening on port ${port}`);
-});
-
-
+*/
