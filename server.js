@@ -12,6 +12,10 @@ app.use(bodyParser.json())
 app.use(routes)
 app.use('/public', express.static(`${process.cwd()}/public`))
 
+app.get('/', function(req, res) {
+  res.sendFile(process.cwd() + '/views/index.html');
+});
+
 // Error Handler - 404
 app.use(function (req, res) {
   if (req.method.toLowerCase() === "options") {
@@ -37,10 +41,6 @@ app.listen(port, function() {
 })
 
 app.use(cors());
-
-app.get('/', function(req, res) {
-  res.sendFile(process.cwd() + '/views/index.html');
-});
 
 /*
 
