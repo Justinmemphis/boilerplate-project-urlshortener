@@ -9,7 +9,7 @@ router.post('/shorturl', (req, res) => {
     return res.status(400).send('Request body is missing')
   }
 
-  var long_url = req.body.original_url
+  var long_url = req.body
   console.log("long_url is :" + long_url)
   const REPLACE_REGEX = /^https?:\/\//i
 
