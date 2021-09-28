@@ -1,6 +1,10 @@
 /*
 TO DO:
 
+09/28 - haven't worked on this in a while.  Will return to learning and refactor project starting next week after vacation.
+
+////////////////////////////////////  Older comments:
+
 Start here - see how to get mongoose to pull in value via variable;  current implementation is not pulling in variable name long_url correctly
 (it is showing as undefined which is messing up the Schema).  As far as I can tell, this is related to importing the initial variable name
 but not updating it after the app runs (so it needs a new instance).  Some methods solve this with classes or functions - see bookmarks for
