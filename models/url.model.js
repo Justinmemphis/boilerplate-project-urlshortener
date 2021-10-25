@@ -14,7 +14,7 @@ mongoose.connect(`mongodb+srv://${user}:${password}@${server}`, { useNewUrlParse
 const Schema = mongoose.Schema
 
 const UrlSchema = new Schema({
-  original_url: { type: String, required: true},
+  url: { type: String, required: true},
   short_url: { type: Number}
 })
 

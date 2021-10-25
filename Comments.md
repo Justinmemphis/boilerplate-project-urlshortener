@@ -1,5 +1,17 @@
 /*
 TO DO:
+10/25 -
+I refactored the code.  Now the data validation appears to be complete.
+Next steps - resolve "/1" etc. urls to pull from database (and throw errors if invalid)
+
+
+
+The Node/Express tutorial John Smilga (Coding Addict on YouTube) has been invaluable in figuring out how to do this.
+Code changed to reflect working through the course.
+
+
+
+
 
 09/28 - haven't worked on this in a while.  Will return to learning and refactor project starting next week after vacation.
 
