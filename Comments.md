@@ -1,5 +1,9 @@
 /*
 TO DO:
+Late 10/25 -
+I almost have it.  I am returning results from the database.  Now just need to get the redirect
+to work properly.
+
 10/25 -
 I refactored the code.  Now the data validation appears to be complete.
 Next steps - resolve "/1" etc. urls to pull from database (and throw errors if invalid)

@@ -16,7 +16,7 @@ const createNewUrl = (req,res) => {
   let failure = "";
   const {url} = req.body
 
-  // test if there is a URL included
+  // test if there is a Url included
   if (!url) {
     return res.status(400).json({success:false,message:'please provide a URL'})
   }
@@ -38,6 +38,7 @@ const createNewUrl = (req,res) => {
 
   // save new URL
   let model = new UrlModel(req.body)
+  let short_url = req.body
   model.save((err,doc) => {
     if (!doc || doc.length == 0) {
       return res.status(500).send(doc)
@@ -46,15 +47,33 @@ const createNewUrl = (req,res) => {
     } else if (err) {
       return res.status(500).json(err)
     } else {
-      res.status(201).json({original_url:`${req.body}`, short_url:short_url})
+      res.status(201).json({original_url:doc.url, short_url:doc.short_url})
       // res.status(201).send(doc)
     }
   })
 
 }
 
+const findUrl = (req,res) => {
+  const {id} = req.params
+  if (!id) {
+    return res.status(400).json({success:false,message:'please provide a URL'})
+  }
+  //let model = new UrlModel(req.params)
+  UrlModel.findOne({ short_url:Number(id) }, (err, result) => {
+    if (err) {
+      return res.send(err)
+    } else {
+      //console.log(stringify(result.url))
+      //return res.status(302).redirect(`${result.url}`)
+      return res.status(200).json({result})
+    }
+  })
+}
+
 module.exports = {
   homePage,
   greeting,
-  createNewUrl
+  createNewUrl,
+  findUrl
 }
