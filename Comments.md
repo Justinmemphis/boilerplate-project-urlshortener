@@ -1,5 +1,8 @@
 /*
 TO DO:
+Late 10/26 -
+Still working on getting the redirect to work properly.  It keeps returning undefined sometimes (1) but not other times (58).
+
 Late 10/25 -
 I almost have it.  I am returning results from the database.  Now just need to get the redirect
 to work properly.
