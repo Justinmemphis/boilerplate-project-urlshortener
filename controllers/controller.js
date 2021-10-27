@@ -55,7 +55,7 @@ const createNewUrl = (req,res) => {
 }
 
 const findUrl = (req,res) => {
-  const {id} = req.params
+  let {id} = req.params
   if (!id) {
     return res.status(400).json({success:false,message:'please provide a URL'})
   }
@@ -64,9 +64,28 @@ const findUrl = (req,res) => {
     if (err) {
       return res.send(err)
     } else {
-      //console.log(stringify(result.url))
-      //return res.status(302).redirect(`${result.url}`)
-      return res.status(200).json({result})
+
+      /*
+      // REGEX to convert to format that will pass DNS
+      const REPLACE_REGEX = /^https?:\/\//i
+      const urlOne = `${result.url}`.replace(REPLACE_REGEX, '')
+      console.log("urlOne is: " + urlOne)
+
+      // DNS validation
+      dns.resolve(urlOne, (err, address) => {
+        if (err == null) {
+          console.log("No errors: " + err + " - " + address)
+        } else {
+          failure = "yes"
+          return res.status(400).json({success:false,message: 'invalid url' })
+        }
+      })
+      */
+
+      console.log(result.url)
+      console.log(Number(result.short_url))
+      return res.status(307).redirect(`//${result.url}`)
+      //return res.status(200).json(result.url)
     }
   })
 }
