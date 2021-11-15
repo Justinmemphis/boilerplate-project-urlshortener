@@ -1,5 +1,11 @@
 /*
 TO DO:
+11/14 -
+
+Haven't worked on it in a while.  Picked it back up today.  Looking at getting the routing correct when
+user puts in a shorturl number.  Got postman working - can try some tests there.
+
+
 Late 10/26 -
 Still working on getting the redirect to work properly.  It keeps returning undefined sometimes (1) but not other times (58).
 

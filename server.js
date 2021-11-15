@@ -18,6 +18,7 @@ app.use(cors())
 app.use('/', routes)
 app.use('/api/hello', routes)
 app.use('/api/shorturl', routes)
+app.use('/api/shorturl/:id', routes)
 
 
 
