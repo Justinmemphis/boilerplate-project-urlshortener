@@ -1,5 +1,9 @@
 /*
 TO DO:
+11/16 -
+
+API seems to be working correctly for GET requests and POST requests.  Already tried to run Free Code Camp tests once and they are not working.  Will try again another day.
+
 11/14 -
 
 Haven't worked on it in a while.  Picked it back up today.  Looking at getting the routing correct when
