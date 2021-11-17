@@ -30,27 +30,29 @@ const createNewUrl = (req,res) => {
   dns.resolve(urlOne, (err, address) => {
     if (err == null) {
       console.log("No errors: " + err + " - " + address)
+
+      // save new URL
+      let model = new UrlModel(req.body)
+      let short_url = req.body
+      model.save((err,doc) => {
+        if (!doc || doc.length == 0) {
+          return res.status(500).send(doc)
+        } else if (failure === "yes") {
+          return "invalid url"
+        } else if (err) {
+          return res.status(500).json(err)
+        } else {
+          res.status(201).json({original_url:doc.url, short_url:doc.short_url})
+          // res.status(201).send(doc)
+        }
+      })
     } else {
       failure = "yes"
       return res.status(400).json({success:false,message: 'invalid url' })
     }
   })
 
-  // save new URL
-  let model = new UrlModel(req.body)
-  let short_url = req.body
-  model.save((err,doc) => {
-    if (!doc || doc.length == 0) {
-      return res.status(500).send(doc)
-    } else if (failure === "yes") {
-      return "invalid url"
-    } else if (err) {
-      return res.status(500).json(err)
-    } else {
-      res.status(201).json({original_url:doc.url, short_url:doc.short_url})
-      // res.status(201).send(doc)
-    }
-  })
+
 
 }
 
@@ -63,29 +65,28 @@ const findUrl = (req,res) => {
   UrlModel.findOne({ short_url:Number(id) }, (err, result) => {
     if (err) {
       return res.send(err)
+    } else if (id < 18) {
+      return res.status(400).json({success:false,message:'please provide a valid URL'})
     } else {
 
-      /*
-      // REGEX to convert to format that will pass DNS
+
       const REPLACE_REGEX = /^https?:\/\//i
-      const urlOne = `${result.url}`.replace(REPLACE_REGEX, '')
-      console.log("urlOne is: " + urlOne)
+      const urlTwo = result.url.replace(REPLACE_REGEX, '')
+      console.log("urlTwo is: " + urlTwo)
 
       // DNS validation
-      dns.resolve(urlOne, (err, address) => {
+      dns.resolve(urlTwo, (err, address) => {
         if (err == null) {
           console.log("No errors: " + err + " - " + address)
+          console.log(result.url)
+          console.log(Number(result.short_url))
+          return res.status(307).redirect(`//${urlTwo}`)
         } else {
           failure = "yes"
           return res.status(400).json({success:false,message: 'invalid url' })
         }
       })
-      */
 
-      console.log(result.url)
-      console.log(Number(result.short_url))
-      return res.status(307).redirect(`//${result.url}`)
-      //return res.status(200).json(result.url)
     }
   })
 }
