@@ -15,6 +15,7 @@ const greeting = (req, res) => {
 const createNewUrl = (req,res) => {
   let failure = "";
   const {url} = req.body
+  console.log(url);
 
   // test if there is a Url included
   if (!url) {
