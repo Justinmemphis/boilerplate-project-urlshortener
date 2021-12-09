@@ -1,5 +1,11 @@
 /*
 TO DO:
+12/09 -
+  There appear to be a few remaining problems (see three links on tab):
+    1. CORS is causing blocking issues - can use corsproxy.github.io to resolve
+    2. Probably the regular express needs to be cleaned up
+
+
 11/16 -
 
 API seems to be working correctly for GET requests and POST requests.  Already tried to run Free Code Camp tests once and they are not working.  Will try again another day.
