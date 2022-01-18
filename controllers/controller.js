@@ -14,17 +14,17 @@ const greeting = (req, res) => {
 // create and save new Url
 const createNewUrl = (req,res) => {
   let failure = "";
-  const {url} = req.body
-  console.log(url);
+  const { original_url } = req.body.url
+  console.log(original_url)
 
   // test if there is a Url included
-  if (!url) {
+  if (!original_url) {
     return res.status(400).json({success:false,message:'please provide a URL'})
   }
 
   // REGEX to convert to format that will pass DNS
   const REPLACE_REGEX = /^https?:\/\//i
-  const urlOne = url.replace(REPLACE_REGEX, '')
+  const urlOne = original_url.replace(REPLACE_REGEX, '')
   console.log("urlOne is: " + urlOne)
 
   // DNS validation
@@ -43,7 +43,7 @@ const createNewUrl = (req,res) => {
         } else if (err) {
           return res.status(500).json(err)
         } else {
-          res.status(201).json({original_url:doc.url, short_url:doc.short_url})
+          res.status(201).json({original_url:doc.original_url, short_url:doc.short_url})
           // res.status(201).send(doc)
         }
       })
@@ -72,14 +72,14 @@ const findUrl = (req,res) => {
 
 
       const REPLACE_REGEX = /^https?:\/\//i
-      const urlTwo = result.url.replace(REPLACE_REGEX, '')
+      const urlTwo = result.original_url.replace(REPLACE_REGEX, '')
       console.log("urlTwo is: " + urlTwo)
 
       // DNS validation
       dns.resolve(urlTwo, (err, address) => {
         if (err == null) {
           console.log("No errors: " + err + " - " + address)
-          console.log(result.url)
+          console.log(result.original_url)
           console.log(Number(result.short_url))
           return res.status(307).redirect(`//${urlTwo}`)
         } else {
