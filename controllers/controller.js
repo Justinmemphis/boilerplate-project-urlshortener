@@ -14,17 +14,21 @@ const greeting = (req, res) => {
 // create and save new Url
 const createNewUrl = (req,res) => {
   let failure = "";
-  const { original_url } = req.body.url
-  console.log(original_url)
+  console.log(req.body)
+  console.log(req.body.url)
+  //const url_request_string = JSON.stringify(req.body)
+  //console.log(url_request_string)
+  let myObj = {["original_url"]:req.body.url}
+  console.log(myObj)
 
   // test if there is a Url included
-  if (!original_url) {
+  if (!req.body.url) {
     return res.status(400).json({success:false,message:'please provide a URL'})
   }
 
   // REGEX to convert to format that will pass DNS
   const REPLACE_REGEX = /^https?:\/\//i
-  const urlOne = original_url.replace(REPLACE_REGEX, '')
+  const urlOne = myObj["original_url"].replace(REPLACE_REGEX, '')
   console.log("urlOne is: " + urlOne)
 
   // DNS validation
@@ -33,8 +37,8 @@ const createNewUrl = (req,res) => {
       console.log("No errors: " + err + " - " + address)
 
       // save new URL
-      let model = new UrlModel(req.body)
-      let short_url = req.body
+      let model = new UrlModel(myObj)
+      let short_url = myObj
       model.save((err,doc) => {
         if (!doc || doc.length == 0) {
           return res.status(500).send(doc)
@@ -66,7 +70,7 @@ const findUrl = (req,res) => {
   UrlModel.findOne({ short_url:Number(id) }, (err, result) => {
     if (err) {
       return res.send(err)
-    } else if (id < 18) {
+    } else if (id < 69) {
       return res.status(400).json({success:false,message:'please provide a valid URL'})
     } else {
 
