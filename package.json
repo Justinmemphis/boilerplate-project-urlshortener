@@ -15,7 +15,8 @@
     "express": "^4.17.1",
     "mongodb": "^4.1.0",
     "mongoose": "^5.13.7",
-    "mongoose-sequence": "^5.3.1"
+    "mongoose-sequence": "^5.3.1",
+    "shortid": "^2.2.16"
   },
   "license": "MIT",
   "devDependencies": {

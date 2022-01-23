@@ -1,5 +1,13 @@
 /*
 TO DO:
+
+01/23 - finished this project; thanks to:
+
+https://replit.com/@Scratchpads/boilerplate-project-urlshortener-2#server.js
+https://replit.com/@jesswebber/boilerplate-project-urlshortener-1v2?v=1
+https://forum.freecodecamp.org/t/i-need-help-in-url-shortener-microservice-please/477113/12
+
+
 12/09 -
   There appear to be a few remaining problems (see three links on tab):
     1. CORS is causing blocking issues - can use corsproxy.github.io to resolve
