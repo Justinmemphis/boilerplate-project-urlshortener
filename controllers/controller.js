@@ -30,6 +30,7 @@ const createNewUrl = (req,res) => {
   const REPLACE_REGEX = /^https?:\/\//i
   const urlOne = myObj["original_url"].replace(REPLACE_REGEX, '')
   console.log("urlOne is: " + urlOne)
+  console.log(myObj)
 
   // DNS validation
   dns.resolve(urlOne, (err, address) => {
@@ -47,7 +48,8 @@ const createNewUrl = (req,res) => {
         } else if (err) {
           return res.status(500).json(err)
         } else {
-          res.status(201).json({original_url:doc.original_url, short_url:doc.short_url})
+          res.status(201).json(doc)
+          //res.status(201).json({original_url:doc.original_url, short_url:doc.short_url})
           // res.status(201).send(doc)
         }
       })
